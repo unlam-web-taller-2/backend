@@ -1,5 +1,8 @@
 # UNLAM - Taller Web 2
 
+## Instalar dependencias
+> npm install 
+
 ## Iniciar projecto
 > node app.js
 
