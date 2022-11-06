@@ -4,6 +4,6 @@ const router =express.Router();
 const productos_controllers = require('../controllers/productosControllers');
 
 // Get productos
-router.get('/productos', productos_controllers.productos_get);
+router.get('/products', productos_controllers.productos_get);
 
 module.exports = router;

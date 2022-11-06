@@ -13,6 +13,7 @@ exports.productos_get = (req, res) => {
         _res.on('data', (_response) => {
             response += _response;
         })
+        
         _res.on('end', () => {
             res.status(200);
             res.setHeader('Content-Type', 'application/json');
