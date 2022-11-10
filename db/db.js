@@ -15,6 +15,7 @@ const drop_users_table = `DROP TABLE ${users_table}`;
 const create_users_table = `CREATE TABLE ${users_table}(id INTEGER PRIMARY KEY, name, lastname, address, email, password)`;
 const insert_user = `INSERT INTO ${users_table} (name, lastname, address, email, password) VALUES (?, ?, ?, ?, ?)`;
 const select_all_users = `SELECT * FROM ${users_table}`;
+const select_user_from_email_password = `SELECT * FROM ${users_table} WHERE email = $email AND password = $password`;
 
 // Products queries
 const drop_products_table = `DROP TABLE ${products_table}`;
@@ -112,3 +113,28 @@ exports.get_all_products = (success, error) => {
         }
     });
 }
+
+exports.sign_in = (email, password, success, error) => {
+    db.all(select_user_from_email_password, [ email, password ], (err, rows) => {
+        if (err) {
+            error(err);
+        } else {
+            if (rows.length === 0) {
+                error({ message: 'Wrong credentials' });
+            } else {
+                console.log(rows)
+                success(rows[0]);
+            }
+        }
+    });
+};
+
+exports.sign_up = (email, password, name, lastname, address, success, error) => {
+    db.run(insert_user, [ name, lastname, address, email, password ], (err) => {
+        if (err) {
+            error(err);
+        } else {
+            success({ message: 'User registered successfully' });
+        }
+    });
+};

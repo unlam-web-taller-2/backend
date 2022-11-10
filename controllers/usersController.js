@@ -1,20 +1,36 @@
+const db = require('../db/db');
+
 exports.sign_in_post = (req, res) => {
     const f = (req, res) => {
-        res.status(200);
         res.setHeader('Content-Type', 'application/json');
-        console.log(req.body.email);
-        res.send(req.body);
+
+        const { email, password } = req.body;
+        db.sign_in(email, password, (data) => {
+
+                res.status(200);
+                res.send(data);
+            }, (err) => {
+
+        res.status(400);
+                res.send(err);});
     }
 
-    setTimeout(f, 2000, req, res);
+    setTimeout(f, 500, req, res);
 }
 
 exports.sign_up_post = (req, res) => {
     const f = (req, res) => {
-        res.status(200);
         res.setHeader('Content-Type', 'application/json');
-        res.send('{ "login": true }');
+
+        const { email, password, name, lastname, address } = req.body;
+        db.sign_up(email, password, name, lastname, address, (data) => {
+            res.status(200);
+            res.send(data);
+        }, (err) => {
+            res.status(400);
+            res.send(err);
+        });
     }
 
-    setTimeout(f, 2000, req, res);
+    setTimeout(f, 500, req, res);
 }
