@@ -1,29 +1,15 @@
-const http = require('https');
+const db = require('../db/db');
 
 exports.productos_get = (req, res) => {
-    const optionGet = {
-        host: 'fakestoreapi.com',
-        path: '/products',
-        method: 'GET'
-    }
+    db.get_all_products((data, err) => {
+        res.setHeader('Content-Type', 'application/json');
 
-    const request = http.request(optionGet, (_res) => {
-        let response = ''
-      
-        _res.on('data', (_response) => {
-            response += _response;
-        })
-        
-        _res.on('end', () => {
+        if (err) {
             res.status(200);
-            res.setHeader('Content-Type', 'application/json');
-            res.send(response);
-        })
+            res.send(err.message);
+        } else {
+            res.status(200);
+            res.send(data);
+        }
     });
-
-    request.on('error', (e) => {
-        console.error(e.message);
-    });
-
-    request.end();
 }
