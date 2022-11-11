@@ -5,7 +5,7 @@ exports.productos_get = (req, res) => {
         res.setHeader('Content-Type', 'application/json');
 
         if (err) {
-            res.status(200);
+            res.status(400);
             res.send(err.message);
         } else {
             res.status(200);

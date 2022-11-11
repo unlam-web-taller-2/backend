@@ -40,7 +40,7 @@ db.serialize(() => {
     // Insert users
     db.run(
         insert_user,
-        ['juan', 'lopez', 'address 123', 'juan_lopez@gmail.com', '123456'],
+        ['admin', 'admin', 'address 123', 'admin@gmail.com', '123456'],
         (err) => {
             console.log(`INSERT INTO ${users_table}: ${err ? err.message : 'Successfully'}`);
         }
