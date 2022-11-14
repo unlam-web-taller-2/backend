@@ -19,8 +19,8 @@ const select_user_from_email_password = `SELECT * FROM ${users_table} WHERE emai
 
 // Products queries
 const drop_products_table = `DROP TABLE ${products_table}`;
-const create_products_table = `CREATE TABLE ${products_table}(id INTEGER PRIMARY KEY,title,price NUM,description,category,image,rate NUM)`;
-const select_all_products = `SELECT *FROM ${products_table}`;
+const create_products_table = `CREATE TABLE ${products_table}(id INTEGER PRIMARY KEY, title, price NUM, description, category, image, rate NUM, stock NUM)`;
+const select_all_products = `SELECT * FROM ${products_table}`;
 
 
 // Init data
@@ -119,12 +119,7 @@ exports.sign_in = (email, password, success, error) => {
         if (err) {
             error(err);
         } else {
-            if (rows.length === 0) {
-                error({ message: 'Wrong credentials' });
-            } else {
-                console.log(rows)
-                success(rows[0]);
-            }
+            success(rows);
         }
     });
 };
@@ -134,7 +129,7 @@ exports.sign_up = (email, password, name, lastname, address, success, error) => 
         if (err) {
             error(err);
         } else {
-            success({ message: 'User registered successfully' });
+            success({});
         }
     });
 };
