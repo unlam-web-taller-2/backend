@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
 
-const resetDB = true;
+const resetDB = false;
 
 // Connect to database
 const db = new sqlite3.Database('./db/database.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -143,7 +143,7 @@ exports.get_all_products = (success, error) => {
     });
 }
 
-exports.sign_in = (email, password, success, error) => {
+exports.login = (email, password, success, error) => {
     db.all(select_user_from_email_password, [ email, password ], (err, rows) => {
         if (err) {
             error(err);
@@ -153,7 +153,7 @@ exports.sign_in = (email, password, success, error) => {
     });
 };
 
-exports.sign_up = (email, password, name, lastname, address, success, error) => {
+exports.register = (email, password, name, lastname, address, success, error) => {
     db.run(insert_user, [ name, lastname, address, email, password ], (err) => {
         if (err) {
             error(err);

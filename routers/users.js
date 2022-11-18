@@ -9,4 +9,7 @@ router.post('/login', users_controller.post_login);
 // POST sign-up
 router.post('/register', users_controller.post_register);
 
+// POST verify
+router.post('/verify', users_controller.post_verify);
+
 module.exports = router;

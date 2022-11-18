@@ -41,3 +41,7 @@ exports.validate_get_user_cart = (user_id) => {
 exports.validate_delete_product_from_user = (user_id, product_id) => {
     return is_number(user_id) && is_number(product_id)
 }
+
+exports.validate_verify = (email, code) => {
+    return validate_email(email) && is_not_empty(code)
+}
