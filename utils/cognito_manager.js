@@ -91,24 +91,3 @@ module.exports = {
     register,
     verify
 }
-
-/*register('sebastianruedaolarte@gmail.com', 'Test123456!', 'name', 'lastname', 'address',
-         (data) => {
-            console.log(data)
-        }, (err) => {
-            console.log(err)
-        }
-)*/
-
-/*verify('sebastianruedaolarte@gmail.com', '480778', (data) => {
-    console.log(data)
-}, (err) => {
-    console.log(err)
-})*/
-
-/*login('sebastianruedaolarte@gmail.com', 'Test123456!', (data) => {
-        console.log(data)
-    },(err) => {
-        console.log(err)
-    }
-)*/

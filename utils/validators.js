@@ -1,9 +1,14 @@
 // Constants
 const password_min_lenght = 6
 const email_regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+const password_regex = /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[#?!@$%^&*\-_]).{6,}$/;
 
-validate_email = (email) => {
+is_email_valid = (email) => {
     return email && email_regex.test(email);
+}
+
+is_password_valid = (password) => {
+    return password && password_regex.test(password)
 }
 
 is_not_empty = (field) => {
@@ -19,11 +24,11 @@ has_min_lenght = (field, minLenght) => {
 }
 
 exports.validate_login = (email, password) => {
-    return validate_email(email, password) && is_not_empty(password)
+    return is_email_valid(email, password) && is_password_valid(password)
 }
 
 exports.validate_register = (email, password, name, lastname, address) => {
-    return validate_email(email) &&
+    return is_email_valid(email) &&
             is_not_empty(password, password_min_lenght) &&
             is_not_empty(name) &&
             is_not_empty(lastname) &&
@@ -43,5 +48,5 @@ exports.validate_delete_product_from_user = (user_id, product_id) => {
 }
 
 exports.validate_verify = (email, code) => {
-    return validate_email(email) && is_not_empty(code)
+    return is_email_valid(email) && is_not_empty(code)
 }

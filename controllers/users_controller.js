@@ -73,7 +73,7 @@ exports.post_verify = (req, res) => {
 
     if (field_validator.validate_verify(email, code)) {
         cognito_maneger.verify(email, code, (data) => {
-            generate_responses.success(res, strings.verify_success);
+            generate_responses.success(res, data, strings.verify_success);
         }, (err) => {
             console.log(err.message)
             generate_responses.error(res, strings.verify_error);
