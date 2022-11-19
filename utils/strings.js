@@ -17,7 +17,8 @@ exports.get_user_cart_success = 'Se obtuvieron los productos agregados al carrit
 exports.delete_product_from_user_cart_success = 'Se eliminó el producto del carrito del usuario'
 
 // Products
-exports.get_products = 'No se pudo listar los productos'
+exports.get_products_error = 'No se pudo listar los productos'
+exports.get_product_error = 'No se pudo encontrar el producto'
 
 // Verify
 exports.verify_error = 'El código ingresado es inválido'

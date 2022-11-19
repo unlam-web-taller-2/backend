@@ -24,6 +24,7 @@ const select_user_from_email_password = `SELECT * FROM ${users_table} WHERE emai
 const drop_products_table = `DROP TABLE ${products_table}`;
 const create_products_table = `CREATE TABLE ${products_table}(id INTEGER PRIMARY KEY, title, price NUM, description, category, image, rate NUM, stock NUM)`;
 const select_all_products = `SELECT * FROM ${products_table}`;
+const select_product_from_id = `SELECT * FROM ${products_table} WHERE id = ?`;
 
 // Cart queries
 const drop_cart_table = `DROP TABLE ${cart_table}`;
@@ -141,6 +142,20 @@ exports.get_all_products = (success, error) => {
             success(rows);
         }
     });
+}
+
+exports.get_product = (id, success, error) => {
+    db.all(select_product_from_id, [id], (err, rows) => {
+        if (err) {
+            error(err)
+        } else {
+            if (rows.length > 0) {
+                success(rows[0])
+            } else {
+                error({})
+            }
+        }
+    })
 }
 
 exports.login = (email, success, error) => {
