@@ -10,7 +10,7 @@ exports.post_login = (req, res) => {
     if (field_validator.validate_login(email, password)) {
         cognito_maneger.login(email, password, (_) => {
             console.log(_)
-            db.login(email, password, (data) => {
+            db.login(email, (data) => {
                 if (data.length > 0) {
                     generate_responses.success(res, data[0], strings.login_success);
                 } else {
@@ -45,7 +45,7 @@ exports.post_register = (req, res) => {
 
     if (field_validator.validate_register(email, password, name, lastname, address)) {
         cognito_maneger.register(email, password, (_) => {
-            db.register(email, password, name, lastname, address, (data) => {
+            db.register(email, name, lastname, address, (data) => {
                 generate_responses.success(res, data, strings.register_success);
                 }, (err) => {
                 console.log(err.error);

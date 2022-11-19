@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
 
-const resetDB = false;
+const resetDB = true;
 
 // Connect to database
 const db = new sqlite3.Database('./db/database.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -15,10 +15,10 @@ const cart_table = 'cart';
 
 // Users queries
 const drop_users_table = `DROP TABLE ${users_table}`;
-const create_users_table = `CREATE TABLE ${users_table}(id INTEGER PRIMARY KEY, name, lastname, address, email, password)`;
-const insert_user = `INSERT INTO ${users_table} (name, lastname, address, email, password) VALUES (?, ?, ?, ?, ?)`;
+const create_users_table = `CREATE TABLE ${users_table}(id INTEGER PRIMARY KEY, name, lastname, address, email)`;
+const insert_user = `INSERT INTO ${users_table} (name, lastname, address, email) VALUES (?, ?, ?, ?)`;
 const select_all_users = `SELECT * FROM ${users_table}`;
-const select_user_from_email_password = `SELECT * FROM ${users_table} WHERE email = $email AND password = $password`;
+const select_user_from_email_password = `SELECT * FROM ${users_table} WHERE email = $email`;
 
 // Products queries
 const drop_products_table = `DROP TABLE ${products_table}`;
@@ -56,7 +56,7 @@ if (resetDB) {
         // Insert users
         db.run(
             insert_user,
-            ['admin', 'admin', 'address 123', 'admin@gmail.com', '123456'],
+            ['admin', 'admin', 'address 123', 'admin@gmail.com'],
             (err) => {
                 console.log(`INSERT INTO ${users_table}: ${err ? err.message : 'Successfully'}`);
             }
@@ -143,8 +143,8 @@ exports.get_all_products = (success, error) => {
     });
 }
 
-exports.login = (email, password, success, error) => {
-    db.all(select_user_from_email_password, [ email, password ], (err, rows) => {
+exports.login = (email, success, error) => {
+    db.all(select_user_from_email_password, [ email ], (err, rows) => {
         if (err) {
             error(err);
         } else {
@@ -153,8 +153,8 @@ exports.login = (email, password, success, error) => {
     });
 };
 
-exports.register = (email, password, name, lastname, address, success, error) => {
-    db.run(insert_user, [ name, lastname, address, email, password ], (err) => {
+exports.register = (email, name, lastname, address, success, error) => {
+    db.run(insert_user, [ name, lastname, address, email ], (err) => {
         if (err) {
             error(err);
         } else {
